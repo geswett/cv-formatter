@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Formateador de CV — Puelche</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="card">
+    <h1>Formateador de CV</h1>
+    <p class="subtitle">
+      Subí un CV en PDF o Word y lo vamos a reordenar automáticamente al formato
+      estándar de Puelche, descartando los datos que no corresponden.
+    </p>
+
+    <form id="cv-form">
+      <label class="dropzone" id="dropzone">
+        <input type="file" id="file-input" name="cv" accept=".pdf,.doc,.docx" hidden />
+        <span id="dropzone-text">Arrastrá el CV acá o hacé clic para elegir el archivo</span>
+      </label>
+      <button type="submit" id="submit-btn" disabled>Procesar CV</button>
+    </form>
+
+    <div id="status" class="status" hidden></div>
+
+    <div id="results" class="results" hidden>
+      <h2>Listo</h2>
+      <div class="downloads">
+        <a id="docx-link" class="btn" download>Descargar .docx</a>
+        <a id="pdf-link" class="btn btn-secondary" download>Descargar .pdf</a>
+      </div>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
