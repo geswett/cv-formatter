@@ -4,7 +4,8 @@ const dropzone = document.getElementById("dropzone");
 const dropzoneText = document.getElementById("dropzone-text");
 const submitBtn = document.getElementById("submit-btn");
 const statusEl = document.getElementById("status");
-const resultsEl = document.getElementById("results");
+const errorEl = document.getElementById("error");
+const resultEl = document.getElementById("result");
 const docxLink = document.getElementById("docx-link");
 const pdfLink = document.getElementById("pdf-link");
 
@@ -38,17 +39,21 @@ function setFile(file) {
   submitBtn.disabled = false;
 }
 
-function setStatus(message, isError = false) {
-  statusEl.hidden = !message;
-  statusEl.textContent = message;
-  statusEl.classList.toggle("error", isError);
+function setStatus(message) {
+  statusEl.textContent = message || "";
+}
+
+function setError(message) {
+  errorEl.textContent = message || "";
+  errorEl.style.display = message ? "block" : "none";
 }
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   if (!selectedFile) return;
 
-  resultsEl.hidden = true;
+  resultEl.classList.remove("ok");
+  setError("");
   submitBtn.disabled = true;
   setStatus("Procesando CV, puede tardar unos segundos…");
 
@@ -65,10 +70,11 @@ form.addEventListener("submit", async (e) => {
 
     docxLink.href = payload.docxUrl;
     pdfLink.href = payload.pdfUrl;
-    resultsEl.hidden = false;
+    resultEl.classList.add("ok");
     setStatus("");
   } catch (err) {
-    setStatus(err.message, true);
+    setError(err.message);
+    setStatus("");
   } finally {
     submitBtn.disabled = false;
   }
