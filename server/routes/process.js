@@ -45,6 +45,17 @@ router.post("/process-cv", upload.single("cv"), async (req, res) => {
 
     const data = await extractStructuredCv(rawText);
 
+    if (
+      data.texto_contiene_cv === false ||
+      !data.nombre_completo ||
+      data.nombre_completo.trim().length < 2
+    ) {
+      return res.status(422).json({
+        error:
+          "No pudimos identificar un CV válido en este archivo. Esto suele pasar cuando el PDF es en realidad una captura de pantalla o una imagen (por ejemplo, exportada desde un lector como WPS) y no tiene texto real. Probá subir el archivo original en Word, o un PDF exportado directamente desde Word (no una captura de pantalla).",
+      });
+    }
+
     const id = crypto.randomBytes(8).toString("hex");
     const docxBuffer = await buildDocx(data);
     const docxPath = path.join(WORK_DIR, `${id}.docx`);
