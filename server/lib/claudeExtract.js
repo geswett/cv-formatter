@@ -26,6 +26,7 @@ function buildSystemPrompt() {
 Tu tarea: leer el texto crudo de un CV y devolver la información extraída y reordenada usando la herramienta "extraer_cv", lista para volcarse en la plantilla oficial de Puelche.
 
 Reglas estrictas:
+0. Antes que nada, evaluá si el texto recibido contiene realmente el contenido de un CV (nombre de una persona, experiencia, formación, etc). A veces el texto extraído de un PDF es basura — por ejemplo, si el PDF original era en realidad una captura de pantalla o una foto (sin texto real), lo único que se puede extraer son textos sueltos de la interfaz de la app usada para verlo (botones como "Login", "Compartir", nombres de menús, avisos publicitarios, etc). Si el texto no contiene contenido real de un CV, poné "texto_contiene_cv" en false y dejá todos los demás campos vacíos — NO inventes un nombre ni ningún otro dato para rellenar.
 1. No inventes información. Todo dato debe poder rastrearse al texto original. Podés reformular redacción (ej. usar verbos de acción en las funciones), pero no agregar logros, empresas, fechas o títulos que no estén en el CV.
 2. Descartá por completo los siguientes datos aunque estén presentes en el CV original: ${DATOS_A_DESCARTAR.join("; ")}.
 3. La experiencia laboral va ordenada del cargo más reciente al más antiguo.
