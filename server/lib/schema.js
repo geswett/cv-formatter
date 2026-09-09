@@ -8,6 +8,11 @@ const CV_TOOL_SCHEMA = {
   input_schema: {
     type: "object",
     properties: {
+      texto_contiene_cv: {
+        type: "boolean",
+        description:
+          "true si el texto de entrada contiene contenido real y legible de un CV (nombre de una persona, experiencia laboral, formación, etc). Poné false si el texto es basura, texto de interfaz de una app (botones, menús, avisos), un documento vacío, o cualquier cosa que NO sea el contenido de un CV real — por ejemplo, esto pasa cuando el archivo original era una imagen/captura de pantalla y no tenía texto real. Si es false, dejá todos los demás campos vacíos ('' o []) y NO inventes nombre_completo ni ningún otro dato.",
+      },
       nombre_completo: {
         type: "string",
         description: "Nombre y apellido(s) de la persona, en mayúsculas.",
@@ -110,7 +115,7 @@ const CV_TOOL_SCHEMA = {
         description: "Actividades complementarias (voluntariados, deportes competitivos, etc). Vacío si no aplica.",
       },
     },
-    required: ["nombre_completo", "resumen", "experiencia", "educacion", "cursos"],
+    required: ["texto_contiene_cv", "nombre_completo", "resumen", "experiencia", "educacion", "cursos"],
   },
 };
 
